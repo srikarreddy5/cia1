@@ -1,45 +1,47 @@
 #include <stdio.h>
-#define INFINITY 9999
-#define MAX 10
+#define inf 10000
+#define max 10
 
-void Dij(int Gr[MAX][MAX], int n, int start);
 
-void Dij(int Gr[MAX][MAX], int n, int start) {
-  int cost[MAX][MAX], distance[MAX], pred[MAX];
-  int visited[MAX], count, mindistance, nextnode, i, j;
+void Dij(int Gr[max][max], int n, int start) 
+{
+  int weight[max][max];
+  int len[max];
+  int pred[max];
+  int visited[max], count, mindistance, nextnode, i, j;
 
   // Creating cost matrix
   for (i = 0; i < n; i++)
     for (j = 0; j < n; j++)
       if (Gr[i][j] == 0)
-        cost[i][j] = INFINITY;
+        weight[i][j] = inf;
       else
-        cost[i][j] = Gr[i][j];
+        weight[i][j] = Gr[i][j];
 
   for (i = 0; i < n; i++) {
-    distance[i] = cost[start][i];
+    len[i] = weight[start][i];
     pred[i] = start;
     visited[i] = 0;
   }
 
-  distance[start] = 0;
+  len[start] = 0;
   visited[start] = 1;
   count = 1;
 
   while (count < n - 1) {
-    mindistance = INFINITY;
+    mindistance = inf;
 
     for (i = 0; i < n; i++)
-      if (distance[i] < mindistance && !visited[i]) {
-        mindistance = distance[i];
+      if (len[i] < mindistance && !visited[i]) {
+        mindistance = len[i];
         nextnode = i;
       }
 
     visited[nextnode] = 1;
     for (i = 0; i < n; i++)
       if (!visited[i])
-        if (mindistance + cost[nextnode][i] < distance[i]) {
-          distance[i] = mindistance + cost[nextnode][i];
+        if (mindistance + weight[nextnode][i] < len[i]) {
+          len[i] = mindistance + weight[nextnode][i];
           pred[i] = nextnode;
         }
     count++;
@@ -48,11 +50,11 @@ void Dij(int Gr[MAX][MAX], int n, int start) {
   // Printing the distance
   for (i = 0; i < n; i++)
     if (i != start) {
-      printf("\nDistance from source to %d: %d", i, distance[i]);
+      printf("\nDistance from source to %d: %d", i, len[i]);
     }
 }
 int main() {
-  int Gr[MAX][MAX], i, j, n, u;
+  int Gr[max][max], i, j, n, u;
   n = 6;
 
   Gr[0][0] = 0;
@@ -79,16 +81,16 @@ int main() {
 
   Gr[3][0] = 0;
   Gr[3][1] = 0;
-  Gr[3][2] = 0;
+  Gr[3][2] = -2;
   Gr[3][3] = 0;
-  Gr[3][4] = -1;
+  Gr[3][4] = 0;
   Gr[3][5] = 0;
 
 
   Gr[4][0] = 0;
   Gr[4][1] = -4;
   Gr[4][2] = 0;
-  Gr[4][3] = 0;
+  Gr[4][3] = -1;
   Gr[4][4] = 0;
   Gr[4][5] = 0;
 
@@ -100,7 +102,7 @@ int main() {
   Gr[5][5] = 0;
 
   u = 0;
-  Dij(Graph, n, u);
+  Dij(Gr, n, u);
   
   return(0);
   }
