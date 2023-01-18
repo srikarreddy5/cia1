@@ -1,1 +1,4 @@
 
+In Kruskal's algorithm, the idea is to sort the edges in ascending order by their weight and pick them up in order and include them in the MST of explored nodes/edges if they do not already form a cycle with any explored nodes. This is done using the Union-Find data structure. But detection of cycles for directed graphs fails with this method.
+ 
+Kruskal's fails because of failure to detect cycles and sometimes it is essential to add edges making cycles to satisfy the "minimum" weighted property of MST.
