@@ -1,0 +1,91 @@
+#include<stdio.h>
+
+int main()
+{
+
+int mat[6][6];
+int mat2[6][6];
+int arr[6];
+int temp=15;
+int newi=0;
+int newj=0;
+
+int d=1;
+arr[0]=0;
+int a=0;
+for(int i=0;i<6;i++)
+{
+
+for(int j=0;j<6;j++)
+{
+   printf("ENter the weight between %d and %d node\n",i,j);
+   scanf("%d",&a);
+   mat[i][j]=a;
+   mat2[i][j]=0;
+   }
+   
+   }
+ 
+ 
+ while(d!=6)
+ {
+ temp=15;
+ 
+    for(int i=0;i<d;i++)
+    {
+         for(int j=0;j<6;j++)
+         {
+           if(mat[arr[i]][j]!=0)
+           {
+            if(temp>mat[arr[i]][j])
+            {
+               temp=mat[arr[i]][j];
+               newi=arr[i];
+               newj=j;
+               }
+          }
+          }
+          
+     }
+     
+     mat2[newi][newj]=temp;
+     arr[d]=newj;
+     mat[newi][newj]=0;
+     d++;
+
+}
+
+printf("The final graph for the shortest path is\n");
+
+printf("  0  1  2  3  4  5\n");
+
+
+for(int i=0;i<6;i++)
+{
+
+printf("%d",i);
+  for(int j=0;j<6;j++)
+  {
+    if(mat2[i][j]<0)
+    {
+    printf(" %d",mat2[i][j]);
+    }
+    
+    else
+    {
+     printf("  %d",mat2[i][j]);
+    }
+    
+   }
+   
+   printf("\n");
+   
+ }
+
+return(0);
+
+
+
+}
+
+
